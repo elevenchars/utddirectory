@@ -3,11 +3,14 @@ from bs4 import BeautifulSoup  # HTML parsing library
 import fire  # CLI interface
 
 
-def print_email(email):
+def print_email(email: str) -> None:
     """Print information about an email scraped from the UTD directory.
 
     Arguments:
-        email {string} -- email to search for in the directory.
+        email {str} -- email to search for in the directory
+
+    Returns:
+        None -- no return type, prints to the console.
     """
 
     results = find_by_email(email)
@@ -17,12 +20,12 @@ def print_email(email):
     print("School: {}".format(results["school"]))
 
 
-def find_by_email(email):
+def find_by_email(email: str) -> dict:
     """Generate a dictionary of information about an email scraped from the
        UTD directory.
 
     Arguments:
-        email {string} -- email to search for in the directory.
+        email {str} -- email to search for in the directory
 
     Returns:
         dict -- dictionary of information containing name, classification,
