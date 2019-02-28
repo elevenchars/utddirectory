@@ -33,6 +33,7 @@ def find_by_email(email: str) -> dict:
     Returns:
         dict -- dictionary of information containing name, classification,
                 major, and school.
+        None -- email was not found in the directory
     """
 
     # request that is called on the UTD Directory page
