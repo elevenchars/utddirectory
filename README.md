@@ -2,6 +2,13 @@
 
 Python module to search the UTD Directory using python.
 
+## Installation
+This has been tested on python 3.7.2.
+
+```
+pip install -r requirements.txt
+```
+
 ## Command Line Usage
 ```
 > python search.py email [emailhere]
