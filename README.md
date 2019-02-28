@@ -29,6 +29,5 @@ search.find_by_email("emailhere")
 Search users by email.
 
 ## Planned Features
-- Gracefully handle incorrect emails: possibly fill dict with None?
 - Allow other search methods
 - Consistent return for all methods
