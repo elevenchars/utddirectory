@@ -11,8 +11,9 @@ pip install -r requirements.txt
 
 ## Command Line Usage
 ```
-> python search.py email [emailhere]
+> python search.py [email/name/number] [emailhere]
 Name: ...
+Email: ...
 Classification: ...
 Major: ...
 School: ...
@@ -21,13 +22,13 @@ School: ...
 ## Module Usage
 ```python
 from utddirectory import search
-search.find_by_email("emailhere")
-# returns name, classification, major, school in a dictionary
+search.search(search.SearchType.NAME, "queryhere")
+# returns name, email, classification, major, school in a dictionary. None if not found.
 ```
+Search types are SearchType.NAME, SearchType.EMAIL, and SearchType.PHONE_NUMBER.
 
 ## Features
-Search users by email.
+Search UTD directory by email, name, and number.
 
-## Planned Features
-- Allow other search methods
-- Consistent return for all methods
+## Caveats
+Currently only works if the search query is EXACT (there is only one result for the query).
