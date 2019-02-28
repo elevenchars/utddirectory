@@ -14,10 +14,13 @@ def print_email(email: str) -> None:
     """
 
     results = find_by_email(email)
-    print("Name: {}".format(results["name"]))
-    print("Classification: {}".format(results["classification"]))
-    print("Major: {}".format(results["major"]))
-    print("School: {}".format(results["school"]))
+    if results:  # if not None:
+        print("Name: {}".format(results["name"]))
+        print("Classification: {}".format(results["classification"]))
+        print("Major: {}".format(results["major"]))
+        print("School: {}".format(results["school"]))
+    else:
+        print("No information found.")
 
 
 def find_by_email(email: str) -> dict:
@@ -38,11 +41,20 @@ def find_by_email(email: str) -> dict:
 
     resp = requests.get(endpoint_url, params=fields)  # send GET request
 
+    # create HTML parser for the response
     soup = BeautifulSoup(resp.text, "html.parser")
+
+    # if there is no user found (<p class='dirAlert'> present)
+    if soup.find("p", {"class": "dirAlert"}):
+        return None
+
+    # find name in the response
     name = soup.find("h5", {"class": "fullname firstEntry"}).text
+
+    # since classification and major are in the same line we need to split
     classification, major = soup.find("span", {"class": "keepHeight"}).next_sibling.split(",")
-    major = major.strip()
-    # this looks kind of gross and i'm sure there is a better way to do this.
+    major = major.strip()  # get rid of extra whitespace
+    # this looks kind of gross and i'm sure there is a better way to do this
     school = soup.find("span", {"class": "keepHeight"}).next_sibling.next_sibling.next_sibling
 
     return {
@@ -53,6 +65,7 @@ def find_by_email(email: str) -> dict:
     }
 
 if __name__ == "__main__":
+    # create command line interface, and only expose the print_email method.
     fire.Fire({
         "email": print_email
     })
